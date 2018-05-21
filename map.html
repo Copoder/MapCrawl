@@ -1,0 +1,1415 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>办税地图</title>
+    <link href="/css/12366/reset.css" rel="stylesheet" type="text/css">
+    <link href="/css/12366/common.css" rel="stylesheet" type="text/css">
+    <link href="/css/12366/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/12366/keyframes.css" rel="stylesheet" type="text/css">
+    <link href="/css/12366/animation.css" rel="stylesheet" type="text/css">
+    <script src="/js/12366/web/jquery-1.8.0.min.js"></script>
+    <script src="/js/12366/web/tree.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zPDIlEu5r3N2DABgSGcBW9tyNBuP8VWR">
+        <script type = "text/javascript" src = "http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js" ></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css"/>
+    <!--加载检索信息窗口-->
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css"/>
+
+
+    <script type="text/javascript">
+        window.ctx_ = "";
+        window._base = "";
+        window._messageEnabled = "false" == "true" ? true : false;
+    </script>
+
+
+    <script src="/core-plugins/ew/depend/cookie/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/depend/validate/jquery.validate.js" type="text/javascript"></script>
+
+    <script src="/core-plugins/ew/ui/js/ew.ui.base.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.util.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.widget.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.ajax.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.alertMsg.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.manager.js" type="text/javascript"></script>
+
+    <script src="/core-plugins/ew/ui/js/ew.ui.link.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.history.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.checkbox.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.combox.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.tree.js" type="text/javascript"></script>
+
+    <script src="/core-plugins/ew/ui/js/ew.ui.selectUDP.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/css/xtgl/udp/style/udp.css"/>
+
+    <script src="/core-plugins/ew/ui/js/ew.ui.tabs.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.layoutH.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.table.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.editor.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.validion.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.searchbar.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.Borderlayout.js" type="text/javascript"></script>
+
+    <script src="/core-plugins/ew/depend/ckeditor-3.6/ckeditor.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/depend/ckeditor-3.6/adapters/jquery.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.ckeditor.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.coder.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.contextMenu.js"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.mouse.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.droppable.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.sortable.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.drag.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.win.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.resizable.js" type="text/javascript"></script>
+
+    <script src="/core-plugins/ew/ui/js/ew.ui.accordion.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.uploader.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.uploadify.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.form.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.grid.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.pagination.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.layout.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.editTable.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.busPlugin.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/workflow/js/ew.extQuery.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.netGrid.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="/core-plugins/ew/ui/js/ew.ui.menu.js"></script>
+    <script type="text/javascript" src="/core-plugins/ew/ui/js/ew.ui.navTab.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/core-plugins/ew/ui/css/ew.ui.datepicker.css"/>
+    <script type="text/javascript" src="/core-plugins/ew/ui/js/ew.ui.datepicker.js"></script>
+    <script src="/core-plugins/ew/ui/js/ew.ui.multiple.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/depend/fusioncharts/js/fusioncharts.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/depend/fusioncharts/js/fusioncharts.powercharts.js" type="text/javascript"></script>
+    <script src="/core-plugins/ew/depend/fusioncharts/js/fusioncharts.charts.js" type="text/javascript"></script>
+
+
+    <style>
+        .anchorBL {
+            bottom: 90px !important
+        }
+
+        .BMap_noprint {
+            bottom: 72px !important
+        }
+    </style>
+</head>
+
+<script type="text/javascript">
+
+    var cityName = "";
+    var provinceName = "";
+    var x = "";
+    var y = "";
+    var map;
+
+    $(function () {
+        //头部命名
+        $('#navname').html("办税地图");
+        map = new BMap.Map("container");
+        var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
+        map.centerAndZoom(point, 15);
+        var cr = new BMap.CopyrightControl({anchor: BMAP_ANCHOR_TOP_RIGHT});   //设置版权控件位置
+        map.addControl(cr); //添加版权控件
+        map.enableScrollWheelZoom(true);
+
+        $(".BMap_cpyCtrl")
+
+        //ip定位城市，并设为中心
+        function myFun(result) {
+
+            cityName = result.name;
+            y = result.center.lat;
+            x = result.center.lng;
+            map.setCenter(cityName);
+
+            //获取省份
+            var myGeo = new BMap.Geocoder();
+            myGeo.getLocation(new BMap.Point(x, y), function (result) {
+                provinceName = result.addressComponents.province;
+                $('#sfid').val(provinceName);
+
+                if ("北京市" == provinceName || "上海市" == provinceName || "重庆市" == provinceName || "天津市" == provinceName) {
+                    $('#cityid').val(result.addressComponents.district);
+                }
+
+                //根据IP 进行第一次省份选择器
+                var sfxx = $('#sfid').val();
+                var sfname = sfxx.substring(0, sfxx.length - 1);
+                var cityxx = $('#cityid').val()
+                var cityname = cityxx.substring(0, cityxx.length);
+                var sfid = $('li[name="' + sfname + '"]');
+                var cityid = $('a[name="' + cityname + '"]');
+                $('#jsq').html("全国 " + sfname + " " + cityxx);
+                $('#sj-menu-sf').html(sfname);
+                getBst($(cityid).attr('id'), $(sfid).attr('id'), 1, null);
+                $('#sf-menu').hide();
+                $('#sj-menu').show();
+                //市级切换
+                var sj = $('#sj-menu').find('li:not(".title")');
+
+                for (var i = 0; i < sj.size(); i++) {
+                    var jqsj = $(sj[i]);
+                    var name = jqsj.attr('name');
+                    if (sfname == name) {
+                        jqsj.show();
+                        break;
+                    } else {
+                        jqsj.hide();
+                    }
+                }
+
+                $('#currentid').val($(cityid).attr('id'));
+                $('#currentid').attr("name", cityxx);
+            });
+            $('#cityid').val(cityName);
+
+        }
+
+        var myCity = new BMap.LocalCity();
+        myCity.get(myFun);
+
+
+    });
+
+
+    //获取办税厅信息
+    function getBst(sjbh, sfbh, lx, search) {
+
+
+        $.ajax({
+            type: "POST", //请求方式
+            url: "BsdtAllBLH_bsdtGetBst.do", //请求路径
+            dataType: 'json',
+            data: {
+                sjbh: sjbh,
+                sfbh: sfbh,
+                lx: lx,
+                search: search
+            },
+            success: function (data) {
+                var maplayout = $('#maplayout');
+                maplayout.empty();
+                for (var j = 0; j < data.length; j++) {
+                    var content = '<ul><li class="treeview"><a class="fn-text" title="' + data[j].swjgmc + '" onclick="zcdjsj(\'' + data[j].id + '\')"><span>' + data[j].swjgmc + '</span></a></li></ul>';
+                    maplayout.append(content);
+                }
+            }
+        });
+
+
+    }
+
+    //左侧菜单点击事件
+    function zcdjsj(unitcode) {
+        $("#swjgmc").empty();
+        $("#swjglxdh").empty();
+        $("#swjgdz").empty();
+        $("#swjgjj").empty();
+        $("#bssj").empty();
+        $.ajax({
+            url: "/BsdtXSBLH_getJdcl.do",
+            data: {'unitcode': unitcode},
+            dataType: 'json',
+            success: function (data1) {
+                var swjgmc = data1.json.swjgmc;
+                var x = data1.json.x;
+                var y = data1.json.y;
+                var swjglxdh = data1.json.swjglxdh;
+                var swjgdz = data1.json.swjgdz;
+                var swjgjj = data1.json.swjgjj;
+                var bssj = data1.json.bssj;
+                var fgqy = data1.json.fgqy;
+                var id = data1.json.id;
+
+                $("#swjgmc").html(swjgmc);
+                $("#fgqy").val(fgqy);
+                $("#swjglxdh").html("\<b\>电话\</b\>" + swjglxdh);
+                $("#swjgdz").html("\<b\>地址\</b\>" + swjgdz);
+                $("#swjgjj").html("\<b\>管辖区域\</b\>" + swjgjj);
+                $("#bssj").html("\<b\>办公时间\</b\>" + bssj);
+                $("#x").val(x);
+                $("#y").val(y);
+                getsfsw();
+                // 用经纬度设置地图中心点
+                map.clearOverlays();
+                var new_point = new BMap.Point(x, y);
+                var marker = new BMap.Marker(new_point);  // 创建标注
+                map.addOverlay(marker);              // 将标注添加到地图中
+                map.panTo(new_point);
+
+
+                marker.addEventListener('click', function () {
+                    searchInfoWindow.open(marker);
+                    $('#container input[type!=text]').on('click', function () {
+                        chine();
+                    })
+                });
+
+                //信息窗口的内容定义
+                var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
+                    '地址：' + $("#swjgdz").html().substring(9) + '<br/>电话：' + $("#swjglxdh").html().substring(9) + '<br/>简介：' + $("#swjgjj").html() + '<br/>办税时间：' + $("#bssj").html().substring(11) +
+                    '</div>';
+
+                //创建带信息窗口的poi点
+                var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+                    title: $("#swjgmc").val(),      //标题
+                    width: 330,             //宽度
+                    height: 145,              //高度
+                    panel: "panel",         //检索结果面板
+                    enableAutoPan: true, //自动平移
+                    enableSendToPhone: true, //是否显示发送到手机按钮
+                    searchTypes: [
+                        BMAPLIB_TAB_SEARCH,   //周边检索
+                        BMAPLIB_TAB_TO_HERE,  //到这里去
+                        BMAPLIB_TAB_FROM_HERE //从这里出发
+                    ]
+                });
+
+
+                if (fgqy) {
+                    if ("" != fgqy) {
+                        var fgqy1 = fgqy.substring(1, fgqy.length - 1).split("}{");
+                        var fl = fgqy1.length;
+                        var points = new Array();
+                        for (var i = 0; i < fl; i++) {
+                            var fgqy2 = fgqy1[i].split(",");
+                            points[i] = new BMap.Point(fgqy2[0], fgqy2[1]);
+                        }
+                        var polygon = new BMap.Polygon(points, {
+                            strokeColor: "#f50704",
+                            fillColor: "",
+                            strokeWeight: 3,
+                            strokeOpacity: 0,
+                            fillOpacity: 0,
+                        });
+                        map.addOverlay(polygon);
+                    }
+                } else {
+                    $("#fgqy").val('');
+                }
+            }
+        });
+    }
+
+    //右侧头部命名
+    function getsfsw() {
+        var name = $('#currentid').attr("name");
+        var lx = $('#lx').val();
+
+        if ("1" == lx) {
+            $('#sfsw').html(name + "国家税务局");
+        } else {
+            $('#sfsw').html(name + "地方税务局");
+        }
+    }
+
+    //隐藏检索结果面板
+    function chine() {
+        if (!isPanelShow) {
+            isPanelShow = true;
+            $("#showPanelBtn").css("right", "300px");
+            $("#panelWrap").css("width", "300px");
+            $("#map").css("margin-right", "300px");
+            $("#showPanelBtn").html("隐藏检索结果面板<br/>");
+            $('#floatHide_right').toggle();
+            $('#floatShow_right').toggle();
+            $('.mapright').animate({right: '-=280px'}, "slow");
+        }
+    }
+
+</script>
+
+
+<body scroll="no" style="overflow-y:hidden; min-width:1000px;">
+<!-- 列表头部 -->
+
+
+<script>
+    $(function () {
+        //鼠标移上去显示
+        $.jqhover = function (tabtit, cur) {
+            $(tabtit).hover(function () {
+                $(this).addClass(cur)
+            }, function () {
+                $(this).removeClass(cur)
+            });
+        };
+        $.jqhover('.j-hover', "cur");
+    });
+</script>
+<!-- 列表头部 -->
+<div class="listheader">
+    <div class="container">
+        <h1 class="nav-logo"><a href="/"><img src="/images/12366/listlogo.png"></a>
+        </h1>
+        <h2 class="navname" id="navname"></h2>
+        <div class="fn-right">
+            <div class="logintext unlogin" style="display:block;">你好，请<a href="javascript:;" id="web_yh_dlsxyzm"
+            >登录</a></div>
+            <div class="logined user" style="display:none;">
+                <ul>
+                    <li class="username-box nav-item j-hover">
+                        <a class="nav-item-btn user-head fn-text web_yh_grxx_begin" href="javascript:;"><img
+                                src="/theme/12366/images/tx_boy.jpg" id="web_yh_tx"><span
+                                id="web_yh_mc">Xuk</span></a>
+                        <div class="dropbox">
+                            <a href="javascript:;" class="web_yh_grxx_begin">个人信息</a>
+                            <a href="javascript:;" class="web_yh_zlxg_begin">资料修改</a>
+                            <a href="javascript:;" class="web_yh_mmxg_begin">修改密码</a>
+                            <a href="javascript:;" id="web_yh_tcdl">退出</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="map">
+    <div id="container" style="width:100%;height:100%;"></div>
+    <div class="mapleft shadow ">
+        <div class="gounp" style="left:330px;">
+            <a id="floatShow_left" class="btnOpen" style="display:none" href="javascript:void(0);">收缩</a>
+            <a id="floatHide_left" class="btnCtn" style="display:block" href="javascript:void(0);">展开</a>
+        </div>
+        <div class="mapbox">
+            <div class="maptitle">
+                <div class="choosebar">
+                    <h3 class="j-hover" style="width: 160px;"><b id="jsq">全国</b> <i class="ico-arrow"></i>
+                        <div class="dropbox" style="width:300px; z-index:9999;height:310px;">
+                            <ul class="dropdown-menu" id="sf-menu">
+                                <li class="title"><span>全部省份</span></li>
+                                <li>
+                                    <span>A-G</span><a>北京</a><a>安徽</a><a>重庆</a><a>福建</a><a>广东</a><a>广西</a><a>甘肃</a><a>贵州</a>
+                                </li>
+                                <li><span>H-J</span><a>河北</a><a>河南</a><a>海南</a><a>湖北</a><a>湖南</a><a>黑龙江</a><a>吉林</a><a>江苏</a><a>江西</a>
+                                </li>
+                                <li><span>L-S</span><a>辽宁</a><a>内蒙古</a><a>宁夏</a><a>青海</a><a>上海</a><a>四川</a><a>山东</a><a>山西</a><a>陕西</a>
+                                </li>
+                                <li><span>T-Z</span><a>天津</a><a>台湾</a><a>新疆</a><a>西藏</a><a>云南</a><a>浙江</a></li>
+                            </ul>
+                            <ul class="dropdown-menu" id="sj-menu" style="display: none;">
+                                <li class="title"><a id="sj-menu-sf"></a><a class="back">[返回全部省份]</a></li>
+                                <li style="display: none;" name="北京" id="11000000"><a name="朝阳区" id="11010500">朝阳区</a><a
+                                        name="海淀区" id="11010800">海淀区</a><a name="西城区" id="11010200">西城区</a><a name="东城区"
+                                                                                                              id="11010100">东城区</a><a
+                                        name="丰台区" id="11010600">丰台区</a><a name="门头沟" id="11010900">门头沟</a><a name="房山区"
+                                                                                                              id="11011100">房山区</a><a
+                                        name="通州区" id="11011200">通州区</a><a name="大兴区" id="11011500">大兴区</a><a name="顺义区"
+                                                                                                              id="11011300">顺义区</a><a
+                                        name="怀柔区" id="11011600">怀柔区</a><a name="昌平区" id="11011400">昌平区</a><a name="平谷区"
+                                                                                                              id="11011700">平谷区</a><a
+                                        name="石景山区" id="11010700">石景山区</a><a name="延庆区" id="11011900">延庆区</a><a
+                                        name="密云区" id="11011800">密云区</a><a name="燕山区" id="11012000">燕山区</a><a name="其他区"
+                                                                                                              id="1100000099">其他区</a>
+                                </li><!--<a name="崇文区" id="11010300">崇文区</a><a name="宣武区" id="11010400">宣武区</a>-->
+                                <li style="display: none;" name="浙江" id="33000000"><a name="杭州市" id="33010000">杭州市</a><a
+                                        name="衢州市" id="33080000">衢州市</a><a name="湖州市" id="33050000">湖州市</a><a name="嘉兴市"
+                                                                                                              id="33040000">嘉兴市</a><a
+                                        name="宁波市" id="33020000">宁波市</a><a name="丽水市" id="33110000">丽水市</a><a name="台州市"
+                                                                                                              id="33100000">台州市</a><a
+                                        name="舟山市" id="33090000">舟山市</a><a name="温州市" id="33030000">温州市</a><a name="绍兴市"
+                                                                                                              id="33060000">绍兴市</a><a
+                                        name="金华市" id="33070000">金华市</a><a name="其他区" id="3300000099">其他区</a></li>
+                                <li style="display: none;" name="上海" id="31000000"><a name="徐汇区" id="31010400">徐汇区</a><a
+                                        name="长宁区" id="31010500">长宁区</a><a name="静安区" id="31010600">静安区</a><a name="闸北区"
+                                                                                                              id="31010800">闸北区</a><a
+                                        name="虹口区" id="31010900">虹口区</a><a name="杨浦区" id="31011000">杨浦区</a><a name="宝山区"
+                                                                                                              id="31011300">宝山区</a><a
+                                        name="闵行区" id="31011200">闵行区</a><a name="嘉定区" id="31011400">嘉定区</a><a name="青浦区"
+                                                                                                              id="31011800">青浦区</a><a
+                                        name="松江区" id="31011700">松江区</a><a name="金山区" id="31011600">金山区</a><a name="奉贤区"
+                                                                                                              id="31012000">奉贤区</a><a
+                                        name="普陀区" id="31010700">普陀区</a><a name="崇明县" id="31023000">崇明县</a><a name="黄浦区"
+                                                                                                              id="31010100">黄浦区</a><a
+                                        name="浦东新区" id="31011500">浦东新区</a><a name="其他区" id="3100000099">其他区</a></li>
+                                <li style="display: none;" name="天津" id="12000000"><a name="东丽区" id="12011000">东丽区</a><a
+                                        name="和平区" id="12010100">和平区</a><a name="河北区" id="12010500">河北区</a><a name="河东区"
+                                                                                                              id="12010200">河东区</a><a
+                                        name="河西区" id="12010300">河西区</a><a name="红桥区" id="12010600">红桥区</a><a name="静海县"
+                                                                                                              id="12022300">静海县</a><a
+                                        name="南开区" id="12010400">南开区</a><a name="塘沽区" id="12010700">塘沽区</a><a name="西青区"
+                                                                                                              id="12011100">西青区</a><a
+                                        name="武清区" id="12011400">武清区</a><a name="津南区" id="12011200">津南区</a><a name="汉沽区"
+                                                                                                              id="12010800">汉沽区</a><a
+                                        name="大港区" id="12010900">大港区</a><a name="北辰区" id="12011300">北辰区</a><a name="宝坻区"
+                                                                                                              id="12011500">宝坻区</a><a
+                                        name="宁河县" id="12022100">宁河县</a><a name="其他区" id="1200000099">其他区</a></li>
+                                <li style="display: none;" name="重庆" id="50000000"><a name="万州区" id="50010100">万州区</a><a
+                                        name="梁平县" id="50022800">梁平县</a><a name="潼南县" id="50022300">潼南县</a>
+                                    <!-- <a>大足区</a> --><a name="黔江区" id="50011400">黔江区</a><a name="武隆县" id="50023200">武隆县</a><a
+                                            name="丰都县" id="50023000">丰都县</a><a name="奉节县" id="50023600">奉节县</a>
+                                    <!-- <a>开县</a> --><a name="云阳县" id="50023500">云阳县</a><!-- <a>忠县</a> --><a name="巫溪县"
+                                                                                                              id="50023800">巫溪县</a><a
+                                            name="巫山县" id="50023700">巫山县</a><!-- <a>石柱县</a><a>彭水县</a> --><a name="垫江县"
+                                                                                                            id="50023100">垫江县</a>
+                                    <!-- <a>酉阳县</a><a>秀山县</a> --><a name="璧山县" id="50022700">璧山县</a><a name="荣昌县"
+                                                                                                       id="50022600">荣昌县</a><a
+                                            name="铜梁县" id="50022400">铜梁县</a><!-- <a>合川区</a> --><a name="巴南区"
+                                                                                                  id="50011300">巴南区</a><a
+                                            name="北碚区" id="50010900">北碚区</a><!-- <a>江津区</a> --><a name="渝北区"
+                                                                                                  id="50011200">渝北区</a><a
+                                            name="长寿区" id="50011500">长寿区</a><!-- <a>永川区</a> --><a name="江北区"
+                                                                                                  id="50010500">江北区</a><a
+                                            name="南岸区" id="50010800">南岸区</a><a name="九龙坡区" id="50010700">九龙坡区</a><a
+                                            name="沙坪坝区" id="50010600">沙坪坝区</a><a name="大渡口区" id="50010400">大渡口区</a>
+                                    <!-- <a>篡江区</a> --><a name="渝中区" id="50010300">渝中区</a><!-- <a>高新区</a><a>北部新区</a> --><a
+                                            name="城口县" id="50022900">城口县</a><a name="其他区" id="5000000099">其他区</a></li>
+                                <li style="display: none;" name="河北" id="13000000"><a name="石家庄市" id="13010000">石家庄市</a><a
+                                        name="邯郸市" id="13040000">邯郸市</a><a name="邢台市" id="13050000">邢台市</a><a name="保定市"
+                                                                                                              id="13060000">保定市</a><a
+                                        name="张家口市" id="13070000">张家口市</a><a name="承德市" id="13080000">承德市</a><a
+                                        name="秦皇岛市" id="13030000">秦皇岛市</a><a name="唐山市" id="13020000">唐山市</a><a
+                                        name="沧州市" id="13090000">沧州市</a><a name="廊坊市" id="13100000">廊坊市</a><a name="衡水市"
+                                                                                                              id="13110000">衡水市</a><a
+                                        name="定州市" id="13130000">定州市</a><a name="辛集市" id="13120000">辛集市</a><a name="其他区"
+                                                                                                              id="1300000099">其他区</a>
+                                </li>
+                                <li style="display: none;" name="山西" id="14000000"><a name="太原市" id="14010000">太原市</a><a
+                                        name="大同市" id="14020000">大同市</a><a name="阳泉市" id="14030000">阳泉市</a><a name="晋中市"
+                                                                                                              id="14070000">晋中市</a><a
+                                        name="晋城市" id="14050000">晋城市</a><a name="朔州市" id="14060000">朔州市</a><a name="吕梁市"
+                                                                                                              id="14110000">吕梁市</a><a
+                                        name="临汾市" id="14100000">临汾市</a><a name="运城市" id="14080000">运城市</a><a name="长治市"
+                                                                                                              id="14040000">长治市</a><a
+                                        name="忻州市" id="14090000">忻州市</a><a name="其他区" id="1400000099">其他区</a></li>
+                                <li style="display: none;" name="河南" id="41000000"><a name="郑州市" id="41010000">郑州市</a><a
+                                        name="开封市" id="41020000">开封市</a><a name="洛阳市" id="41030000">洛阳市</a><a
+                                        name="平顶山市" id="41040000">平顶山市</a><a name="焦作市" id="41080000">焦作市</a><a
+                                        name="鹤壁市" id="41060000">鹤壁市</a><a name="新乡市" id="41070000">新乡市</a><a name="安阳市"
+                                                                                                              id="41050000">安阳市</a><a
+                                        name="濮阳市" id="41090000">濮阳市</a><a name="许昌市" id="41100000">许昌市</a><a name="漯河市"
+                                                                                                              id="41110000">漯河市</a><a
+                                        name="三门峡市" id="41120000">三门峡市</a><a name="南阳市" id="41130000">南阳市</a><a
+                                        name="商丘市" id="41140000">商丘市</a><a name="周口市" id="41160000">周口市</a><a
+                                        name="驻马店市" id="41170000">驻马店市</a><a name="信阳市" id="41150000">信阳市</a>
+                                    <!-- <a>济源市</a> --><a name="其他区" id="4100000099">其他区</a></li>
+                                <li style="display: none;" name="辽宁" id="21000000"><a name="沈阳市" id="21010000">沈阳市</a><a
+                                        name="大连市" id="21020000">大连市</a><a name="鞍山市" id="21030000">鞍山市</a><a name="抚顺市"
+                                                                                                              id="21040000">抚顺市</a><a
+                                        name="本溪市" id="21050000">本溪市</a><a name="丹东市" id="21060000">丹东市</a><a name="锦州市"
+                                                                                                              id="21070000">锦州市</a><a
+                                        name="葫芦岛市" id="21140000">葫芦岛市</a><a name="营口市" id="21080000">营口市</a><a
+                                        name="盘锦市" id="21110000">盘锦市</a><a name="阜新市" id="21090000">阜新市</a><a name="辽阳市"
+                                                                                                              id="21100000">辽阳市</a><a
+                                        name="朝阳市" id="21130000">朝阳市</a><a name="铁岭市" id="21120000">铁岭市</a><a name="其他区"
+                                                                                                              id="2100000099">其他区</a>
+                                </li>
+                                <li style="display: none;" name="吉林" id="22000000"><a name="长春市" id="22010000">长春市</a><a
+                                        name="吉林市" id="22020000">吉林市</a><a name="四平市" id="22030000">四平市</a><a name="辽源市"
+                                                                                                              id="22040000">辽源市</a><a
+                                        name="通化市" id="22050000">通化市</a><a name="白山市" id="22060000">白山市</a><a name="松原市"
+                                                                                                              id="22070000">松原市</a><a
+                                        name="白城市" id="22080000">白城市</a><!-- <a>延边州</a><a>许昌市</a><a>漯河市</a> --><a
+                                        name="其他区" id="2200000099">其他区</a></li>
+                                <li style="display: none;" name="黑龙江" id="23000000"><a name="鹤岗市"
+                                                                                       id="23040000">鹤岗市</a><a
+                                        name="双鸭山市" id="23050000">双鸭山市</a><a name="鸡西市" id="23030000">鸡西市</a><a
+                                        name="大庆市" id="23060000">大庆市</a><a name="伊春市" id="23070000">伊春市</a><a
+                                        name="牡丹江市" id="23100000">牡丹江市</a><a name="佳木斯市" id="23080000">佳木斯市</a><a
+                                        name="七台河市" id="23090000">七台河市</a><a name="黑河市" id="23110000">黑河市</a><a
+                                        name="绥化市" id="23120000">绥化市</a><a name="大兴安岭地区" id="23270000">大兴安岭地区</a><a
+                                        name="哈尔滨市" id="23010000">哈尔滨市</a><a name="齐齐哈尔市" id="23020000">齐齐哈尔市</a><a
+                                        name="其他区" id="2300000099">其他区</a></li>
+                                <li style="display: none;" name="内蒙古" id="15000000"><a name="呼和浩特市"
+                                                                                       id="15010000">呼和浩特市</a><a
+                                        name="包头市" id="15020000">包头市</a><a name="乌海市" id="15030000">乌海市</a><a name="赤峰市"
+                                                                                                              id="15040000">赤峰市</a><a
+                                        name="乌兰察布市" id="15090000">乌兰察布市</a><a name="锡林郭勒盟" id="15250000">锡林郭勒盟</a><a
+                                        name="呼伦贝尔市" id="15070000">呼伦贝尔市</a><a name="鄂尔多斯" id="15060000">鄂尔多斯市</a><a
+                                        name="巴彦淖尔市" id="15080000">巴彦淖尔市</a><a name="阿拉善盟" id="15290000">阿拉善盟</a><a
+                                        name="兴安盟" id="15220000">兴安盟</a><a name="通辽市" id="15050000">通辽市</a><a name="其他区"
+                                                                                                              id="1500000099">其他区</a>
+                                </li>
+                                <li style="display: none;" name="江苏" id="32000000"><a name="南京市" id="32010000">南京市</a><a
+                                        name="徐州市" id="32030000">徐州市</a><a name="连云港市" id="32070000">连云港市</a><a
+                                        name="淮安市" id="32080000">淮安市</a><a name="宿迁市" id="32130000">宿迁市</a><a name="盐城市"
+                                                                                                              id="32090000">盐城市</a><a
+                                        name="扬州市" id="32100000">扬州市</a><a name="泰州市" id="32120000">泰州市</a><a name="南通市"
+                                                                                                              id="32060000">南通市</a><a
+                                        name="镇江市" id="32110000">镇江市</a><a name="常州市" id="32040000">常州市</a><a name="无锡市"
+                                                                                                              id="32020000">无锡市</a><a
+                                        name="苏州市" id="32050000">苏州市</a><a name="其他区" id="3200000099">其他区</a></li>
+                                <li style="display: none;" name="山东" id="37000000"><a name="济宁市" id="37080000">济宁市</a><a
+                                        name="济南市" id="37010000">济南市</a><a name="青岛市" id="37020000">青岛市</a><a name="淄博市"
+                                                                                                              id="37030000">淄博市</a><a
+                                        name="枣庄市" id="37040000">枣庄市</a><a name="东营市" id="37050000">东营市</a><a name="烟台市"
+                                                                                                              id="37060000">烟台市</a><a
+                                        name="潍坊市" id="37070000">潍坊市</a><a name="威海市" id="37100000">威海市</a><a name="莱芜市"
+                                                                                                              id="37120000">莱芜市</a><a
+                                        name="德州市" id="37140000">德州市</a><a name="临沂市" id="37130000">临沂市</a><a name="聊城市"
+                                                                                                              id="37150000">聊城市</a><a
+                                        name="滨州市" id="37160000">滨州市</a><a name="菏泽市" id="37170000">菏泽市</a><a name="日照市"
+                                                                                                              id="37110000">日照市</a><a
+                                        name=泰安市"" id="37090000">泰安市</a><a name="其他区" id="3700000099">其他区</a></li>
+                                <li style="display: none;" name="安徽" id="34000000"><a name="黄山市" id="34100000">黄山市</a><a
+                                        name="滁州市" id="34110000">滁州市</a><a name="阜阳市" id="34120000">阜阳市</a><a name="亳州市"
+                                                                                                              id="34160000">亳州市</a><a
+                                        name="宿州市" id="34130000">宿州市</a><a name="巢湖市" id="34140000">巢湖市</a><a name="池州市"
+                                                                                                              id="34170000">池州市</a><a
+                                        name="六安市" id="34150000">六安市</a><a name="宣城市" id="34180000">宣城市</a><a name="铜陵市"
+                                                                                                              id="34070000">铜陵市</a><a
+                                        name="合肥市" id="34010000">合肥市</a><a name="淮南市" id="34040000">淮南市</a><a name="淮北市"
+                                                                                                              id="34060000">淮北市</a><a
+                                        name="芜湖市" id="34020000">芜湖市</a><a name="蚌埠市" id="34030000">蚌埠市</a><a
+                                        name="马鞍山市" id="34050000">马鞍山市</a><a name="安庆市" id="34080000">安庆市</a><a
+                                        name="其他区" id="3400000099">其他区</a></li>
+                                <li style="display: none;" name="福建" id="35000000"><a name="福州市" id="35010000">福州市</a><a
+                                        name="厦门市" id="35020000">厦门市</a><a name="三明市" id="35040000">三明市</a><a name="莆田市"
+                                                                                                              id="35030000">莆田市</a><a
+                                        name="泉州市" id="35050000">泉州市</a><a name="漳州" id="35060000">漳州市</a><a name="南平市"
+                                                                                                             id="35070000">南平市</a><a
+                                        name="龙岩市" id="35080000">龙岩市</a><a name="宁德市" id="35090000">宁德市</a><a name="其他区"
+                                                                                                              id="3500000099">其他区</a>
+                                </li>
+                                <li style="display: none;" name="湖北" id="42000000"><a name="孝感市" id="42090000">孝感市</a><a
+                                        name="黄冈市" id="42110000">黄冈市</a><a name="咸宁市" id="42120000">咸宁市</a><a name="恩施州"
+                                                                                                              id="42280000">恩施州</a><a
+                                        name="鄂州市" id="42070000">鄂州市</a><a name="荆门市" id="42100000">荆门市</a><a name="随州市"
+                                                                                                              id="42130000">随州市</a><a
+                                        name="神农架林区" id="42902100">神农架林区</a><a name="武汉市" id="42010000">武汉市</a><a
+                                        name="黄石市" id="42020000">黄石市</a><a name="襄阳市" id="42060700">襄阳市</a><a name="十堰市"
+                                                                                                              id="42030000">十堰市</a><a
+                                        name="荆州市" id="42080000">荆州市</a><a name="宜昌市" id="42050000">宜昌市</a><a name="襄樊市"
+                                                                                                              id="42060000">襄樊市</a><a
+                                        name="潜江市" id="42900500">潜江市</a><a name="天门市" id="42900600">天门市</a><a name="仙桃市"
+                                                                                                              id="42900400">仙桃市</a><a
+                                        name="其他区" id="4200000099">其他区</a></li>
+                                <li style="display: none;" name="湖南" id="43000000"><a name="长沙市" id="43010000">长沙市</a><a
+                                        name="株洲市" id="43020000">株洲市</a><a name="湘潭市" id="43030000">湘潭市</a><a name="衡阳市"
+                                                                                                              id="43040000">衡阳市</a><a
+                                        name="邵阳市" id="43050000">邵阳市</a><a name="岳阳市" id="43060000">岳阳市</a><a name="常德市"
+                                                                                                              id="43070000">常德市</a><a
+                                        name="张家界市" id="43080000">张家界市</a><a name="郴州" id="43100000">郴州市</a><a
+                                        name="益阳市" id="43090000">益阳市</a><a name="永州市" id="43110000">永州市</a><a name="怀化市"
+                                                                                                              id="43120000">怀化市</a><a
+                                        name="娄底市" id="43130000">娄底市</a><a name="湘西州" id="43310000">湘西州</a><a name="其他区"
+                                                                                                              id="4300000099">其他区</a>
+                                </li>
+                                <li style="display: none;" name="广东" id="44000000"><a name="广州市" id="44010000">广州市</a><a
+                                        name="深圳市" id="44030000">深圳市</a><a name="珠海市" id="44040000">珠海市</a><a name="汕头市"
+                                                                                                              id="44050000">汕头市</a><a
+                                        name="韶关市" id="44020000">韶关市</a><a name="河源市" id="44160000">河源市</a><a name="梅州市"
+                                                                                                              id="44140000">梅州市</a><a
+                                        name="揭阳" id="44520000">揭阳市</a><a name="惠州市" id="44130000">惠州市</a><a name=">汕尾市"
+                                                                                                             id="44150000">汕尾市</a><a
+                                        name="东莞市" id="44190000">东莞市</a><a name="中山市" id="44200000">中山市</a><a name="江门市"
+                                                                                                              id="44070000">江门市</a><a
+                                        name="佛山市" id="44060000">佛山市</a><a name="阳江市" id="44170000">阳江市</a><a name="湛江市"
+                                                                                                              id="44080000">湛江市</a><a
+                                        name="茂名市" id="44090000">茂名市</a><a name="肇庆市" id="44120000">肇庆市</a><a name="云浮市"
+                                                                                                              id="44530000">云浮市</a><a
+                                        name="清远市" id="44180000">清远市</a><a name="潮州市" id="44510000">潮州市</a><a name="其他区"
+                                                                                                              id="4400000099">其他区</a>
+                                </li>
+                                <li style="display: none;" name="广西" id="45000000"><a name="崇左市" id="45140000">崇左市</a><a
+                                        name="南宁市" id="45010000">南宁市</a><a name="柳州市" id="45020000">柳州市</a><a name="桂林市"
+                                                                                                              id="45030000">桂林市</a><a
+                                        name="梧州市" id="45040000">梧州市</a><a name="北海市" id="45050000">北海市</a><a
+                                        name="防城港市" id="45060000">防城港市</a><a name="钦州市" id="45070000">钦州市</a><a
+                                        name="贵港市" id="45080000">贵港市</a><a name="玉林市" id="45090000">玉林市</a><a name="贺州市"
+                                                                                                              id="45110000">贺州市</a><a
+                                        name="百色市" id="45100000">百色市</a><a name="河池市" id="45120000">河池市</a><a name="来宾市"
+                                                                                                              id="45130000">来宾市</a><a
+                                        name="其他区" id="4500000099">其他区</a></li>
+                                <li style="display: none;" name="四川" id="51000000"><a name="凉山州" id="51340000">凉山州</a><a
+                                        name="成都市" id="51010000">成都市</a><a name="自贡市" id="51030000">自贡市</a><a
+                                        name="攀枝花市" id="51040000">攀枝花市</a><a name="泸州市" id="51050000">泸州市</a><a
+                                        name="绵阳市" id="51070000">绵阳市</a><a name="德阳市" id="51060000">德阳市</a><a name="广元市"
+                                                                                                              id="51080000">广元市</a><a
+                                        name="遂宁市" id="51090000">遂宁市</a><a name="内江市" id="51100000">内江市</a><a name="乐山市"
+                                                                                                              id="51110000">乐山市</a><a
+                                        name="宜宾市" id="51150000">宜宾市</a><a name="广安市" id="51160000">广安市</a><a name="南充市"
+                                                                                                              id="51130000">南充市</a><a
+                                        name="达州市" id="51170000">达州市</a><a name="巴中市" id="51190000">巴中市</a><a name="雅安市"
+                                                                                                              id="51180000">雅安市</a><a
+                                        name="眉山市" id="51140000">眉山市</a><a name="资阳市" id="51200000">资阳市</a><a name="阿坝州"
+                                                                                                              id="51320000">阿坝州</a><a
+                                        name="甘孜州" id="51330000">甘孜州</a><a name="其他区" id="5100000099">其他区</a></li>
+                                <li style="display: none;" name="海南" id="46000000"><a name="三亚市" id="46020000">三亚市</a><a
+                                        name="文昌市" id="46000500">文昌市</a><a name="五指山市" id="46000100">五指山市</a><a
+                                        name="临高县" id="46002800">临高县</a><a name="澄迈县" id="46002700">澄迈县</a><a name="定安县"
+                                                                                                              id="46002500">定安县</a><a
+                                        name="屯昌县" id="46002600">屯昌县</a><a name="昌江" id="46003100">昌江县</a><a name="白沙县"
+                                                                                                             id="46003000">白沙县</a><a
+                                        name="琼中县" id="46003600">琼中县</a><a name="陵水县" id="46003400">陵水县</a><a name="保亭县"
+                                                                                                              id="46003500">保亭县</a><a
+                                        name="乐东县" id="46003300">乐东县</a><!-- <a id="">三沙市</a> --><a name="海口市"
+                                                                                                    id="46010000">海口市</a><a
+                                        name="琼海市" id="46000200">琼海市</a><a name="万宁市" id="46000600">万宁市</a><a name="东方市"
+                                                                                                              id="46000700">东方市</a><a
+                                        name="儋州市" id="46000300">儋州市</a><a name="其他区" id="4600000099">其他区</a></li>
+                                <li style="display: none;" name="贵州" id="52000000"><a name="贵阳市" id="52010000">贵阳市</a><a
+                                        name="六盘水市" id="52020000">六盘水市</a><a name="遵义市" id="52030000">遵义市</a><a
+                                        name="铜仁市" id="52220000">铜仁市</a><a name="毕节市" id="52240000">毕节市</a><a name="安顺市"
+                                                                                                              id="52040000">安顺市</a><a
+                                        name="黔西南州" id="52230000">黔西南州</a><a name="黔东南州" id="52260000">黔东南州</a><a
+                                        name=">黔南州" id="52270000">黔南州</a><a name="其他区" id="5200000099">其他区</a></li>
+                                <li style="display: none;" name="云南" id="53000000"><a name="迪庆州" id="53340000">迪庆州</a><a
+                                        name="昆明市" id="53010000">昆明市</a><a name="曲靖市" id="53030000">曲靖市</a><a name="玉溪市"
+                                                                                                              id="53040000">玉溪市</a><a
+                                        name="昭通市" id="53060000">昭通市</a><!-- <a id="">普洱市</a> --><a name="临沧市"
+                                                                                                    id="53090000">临沧市</a><a
+                                        name="保山市" id="53050000">保山市</a><a name="丽江市" id="53070000">丽江市</a><a name="思茅市"
+                                                                                                              id="53080000">思茅市</a><a
+                                        name="文山州" id="53260000">文山州</a><a name="红河州" id="53250000">红河州</a><a
+                                        name="西双版纳州" id="53280000">西双版纳州</a><a name="楚雄州" id="53230000">楚雄州</a><a
+                                        name="大理州" id="53290000">大理州</a><a name="德宏州" id="53310000">德宏州</a><a name="怒江州"
+                                                                                                              id="53330000">怒江州</a><a
+                                        name="其他区" id="5300000099">其他区</a></li>
+                                <li style="display: none;" name="西藏" id="54000000"><a name="阿里地区" id="54250000">阿里地区</a><a
+                                        name="林芝地区" id="54260000">林芝地区</a><a name="拉萨市" id="54010000">拉萨市</a><a
+                                        name="那曲地区" id="54240000">那曲地区</a><a name="山南地区" id="54220000">山南地区</a><a
+                                        name="昌都地区" id="54210000">昌都地区</a><a name="日喀则地区" id="54230000">日喀则地区</a><a
+                                        name="其他区" id="5400000099">其他区</a></li>
+                                <li style="display: none;" name="陕西" id="61000000"><a name="延安市" id="61060000">延安市</a><a
+                                        name="汉中市" id="61070000">汉中市</a><a name="榆林市" id="61080000">榆林市</a><a name="商洛市"
+                                                                                                              id="61100000">商洛市</a><a
+                                        name="安康市" id="61090000">安康市</a><a name="西安市" id="61010000">西安市</a><a name="铜川市"
+                                                                                                              id="61020000">铜川市</a><a
+                                        name="宝鸡市" id="61030000">宝鸡市</a><a name="咸阳市" id="61040000">咸阳市</a><a name="渭南市"
+                                                                                                              id="61050000">渭南市</a><a
+                                        name="其他区" id="6100000099">其他区</a></li>
+                                <li style="display: none;" name="甘肃" id="62000000"><a name="庆阳市" id="62100000">庆阳市</a><a
+                                        name="陇南市" id="62120000">陇南市</a><a name="武威市" id="62060000">武威市</a><a name="张掖市"
+                                                                                                              id="62070000">张掖市</a><a
+                                        name="酒泉市" id="62090000">酒泉市</a><a name="甘南州" id="62300000">甘南州</a><a name="临夏州"
+                                                                                                              id="62290000">临夏州</a><a
+                                        name="定西市" id="62110000">定西市</a><a name="兰州市" id="62010000">兰州市</a><a name="金昌市"
+                                                                                                              id="62030000">金昌市</a><a
+                                        name="白银市" id="62040000">白银市</a><a name="天水市" id="62050000">天水市</a><a
+                                        name="嘉峪关市" id="62020000">嘉峪关市</a><a name="平凉市" id="62080000">平凉市</a><a
+                                        name="其他区" id="6200000099">其他区</a></li>
+                                <li style="display: none;" name="青海" id="63000000"><a name="西宁市" id="63010000">西宁市</a><a
+                                        name="海东地区" id="63210000">海东地区</a><a name="海北州" id="63220000">海北州</a><a
+                                        name="黄南州" id="63230000">黄南州</a><a name="海南州" id="63250000">海南州</a><a name="果洛州"
+                                                                                                              id="63260000">果洛州</a><a
+                                        name="玉树州" id="63270000">玉树州</a><a name="海西州" id="63280000">海西州</a><a name="其他区"
+                                                                                                              id="6300000099">其他区</a>
+                                </li>
+                                <li style="display: none;" name="宁夏" id="64000000"><a name="银川市" id="64010000">银川市</a><a
+                                        name="石嘴山市" id="64020000">石嘴山市</a><a name="吴忠市" id="64030000">吴忠市</a><a
+                                        name="固原市" id="64040000">固原市</a><a name="中卫市" id="64050000">中卫市</a><a name="其他区"
+                                                                                                              id="6400000099">其他区</a>
+                                </li>
+                                <li style="display: none;" name="新疆" id="65000000"><a name="五家渠市" id="65900400">五家渠市</a><a
+                                        name="阿拉尔市" id="65900200">阿拉尔市</a><a name="图木舒克市" id="65900300">图木舒克市</a><a
+                                        name="乌鲁木齐市" id="65010000">乌鲁木齐市</a><a name="克拉玛依市" id="65020000">克拉玛依市</a><a
+                                        name="石河子市" id="65900100">石河子市</a><a name="吐鲁番地区" id="65210000">吐鲁番地区</a><a
+                                        name="哈密地区" id="65220000">哈密地区</a><a name="和田地区" id="65320000">和田地区</a><a
+                                        name="阿克苏地区" id="65290000">阿克苏地区</a><a name="喀什地区" id="65310000">喀什地区</a><a
+                                        name="克孜勒苏州" id="65300000">克孜勒苏州</a><a name="巴音郭楞州" id="65280000">巴音郭楞州</a><a
+                                        name="昌吉州" id="65230000">昌吉州</a><a name="博尔塔拉州" id="65270000">博尔塔拉州</a><a
+                                        name="伊犁州" id="65400000">伊犁州</a><a name="塔城地区" id="65420000">塔城地区</a><a
+                                        name="阿勒泰地区" id="65430000">阿勒泰地区</a><a name="博尔塔拉蒙古自治州阿拉山口口岸" id="65270000">博尔塔拉蒙古自治州阿拉山口口岸</a><a
+                                        name="其他区" id="6500000099">其他区</a></li>
+                                <li style="display: none;" name="江西" id="36000000"><a name="南昌市" id="36010000">南昌市</a><a
+                                        name="景德镇市" id="36020000">景德镇市</a><a name="萍乡市" id="36030000">萍乡市</a><a
+                                        name="新余市" id="36050000">新余市</a><a name="九江市" id="36040000">九江市</a><a name="鹰潭市"
+                                                                                                              id="36060000">鹰潭市</a><a
+                                        name="上饶市" id="36110000">上饶市</a><a name="宜春市" id="36090000">宜春市</a><a name="抚州市"
+                                                                                                              id="36100000">抚州市</a><a
+                                        name="吉安市" id="36080000">吉安市</a><a name="赣州市" id="36070000">赣州市</a><a name="其他区"
+                                                                                                              id="3600000099">其他区</a>
+                                </li>
+
+                                <li style="display: none;" name="台湾" id="tw"><a name="台湾市" id="tws">台湾市</a><a name="其他区"
+                                                                                                              id="tw99">其他区</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </h3>
+                    <a href="#" class="btnlink btn btnborder btnsmall" id="qhzds">切换至地税</a>
+                    <a href="#" class="btnlink btn btnborder btnsmall" id="qhzgs" style="display: none;">切换至国税</a>
+                    <input type="hidden" value="1" id="lx">
+                    <input type="hidden" value="" id="cityid">
+                    <input type="hidden" value="" id="sfid">
+                    <input type="hidden" value="" id="currentid">
+
+                </div>
+                <div class="searchbox">
+                    <form name="searchForm" action="" method="get" id="searchForm">
+                        <div class="search-bg" style="height: 14px;line-height:14px;">
+                            <input type="text" name="" id="search" placeholder="输入关键字（例：北京）" class="search-input"
+                                   style="">
+                            <a href="#" class="close" id="closex" style="display:block">x</a>
+                        </div>
+                        <div class="search-bar"><input name="" id="searchbut" type="button" value="搜索"
+                                                       class="search-button btnblue"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="siderbar-menu scroll" id="maplayout">
+
+            </div>
+        </div>
+    </div>
+    <div class="mapright">
+        <div class="gounp" style="right:280px;">
+            <a id="floatHide_right" class="btnCtn" style="display:block" href="javascript:void(0);">收缩</a>
+            <a id="floatShow_right" class="btnOpen" style="display:none" href="javascript:void(0);">展开</a>
+        </div>
+        <div class="mapbox">
+            <div class="maptitle"><h3 id="sfsw" style="font-size:18px;"></h3></div>
+            <div class="maptext scroll" id="maptext">
+                <div class="maptext_tit" id="swjgmc"></div>
+                <div class="maptext_con">
+                    <p id="swjglxdh" style="font-size:16px;"></p>
+                    <p id="bssj" style="font-size:16px;"></p>
+                    <p id="swjgdz" style="font-size:16px;"></p>
+                    <p id="swjgjj" style="font-size:16px;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="showPanelBtn"
+         style="position: absolute; font-size: 14px; top: 50%; margin-top: -95px; right: 0px; width: 20px; padding: 10px 10px; color: blue; cursor: pointer; text-align: center; height: 170px; background: rgba(255,255,255,0.9); -webkit-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; font-family: '微软雅黑'; font-weight: bold;">
+        显示检索结果面板<br/>
+    </div>
+    <div id="panelWrap"
+         style="width: 0px; position: absolute; top: 0; right: 0px; height: 100%; overflow: auto; -webkit-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out;background: #ddd">
+        <div style="width: 20px; height: 200px; margin: -100px 0 0 -10px; color: #999; position: absolute; opacity: 0.5; top: 50%; left: 50%;font-size: 20px;color:#000">
+            无检索结果
+        </div>
+        <div id="panel" style="position: absolute; width: 300px;"></div>
+    </div>
+
+</div>
+
+<div class="dropbox viocebox" style="display:none;">
+    <a class="close"></a>
+    <i class="vicon3"></i>
+</div>
+
+<script>
+    var isPanelShow = false;
+
+    $(function () {
+        //鼠标移上去显示
+        $.jqhover = function (tabtit, cur) {
+            $(tabtit).hover(function () {
+                $(this).addClass(cur)
+            }, function () {
+                $(this).removeClass(cur)
+            });
+        };
+        $.jqhover('.j-hover', "cur");
+        //自动计算高度
+        var target1 = $("#maplayout");//左边树高度
+        var target2 = $("#maptext");//右边内容高度
+        $(window).resize(function () {
+            var $ts = $(this),
+                windowHeight = $ts.height();
+            target1.height(windowHeight - 170);
+            target2.height(windowHeight - 120);
+        }).resize();
+
+        //返回省份事件
+        $('.back').on("click", function () {
+            $('#jsq').html("全国");
+
+            $('#sj-menu').hide();
+            $('#sf-menu').show();
+        });
+
+        //定位选择器
+        //省份选择器
+        $('#sf-menu').find('a:not(".back")').on("click", function (a) {
+            var sf = a.target.innerHTML;
+
+            $('#sj-menu-sf').html(sf);
+            $('#jsq').html("全国 " + sf);
+
+            $('#sf-menu').hide();
+            $('#sj-menu').show();
+            $('#sfid').val(sf);
+            $('#cityid').val('');
+            //市级切换
+            var sj = $('#sj-menu').find('li:not(".title")');
+
+            for (var i = 0; i < sj.size(); i++) {
+                var jqsj = $(sj[i]);
+                var name = jqsj.attr('name');
+                if (sf == name) {
+                    jqsj.show();
+                } else {
+                    jqsj.hide();
+                }
+            }
+        });
+
+        //市级选择器
+        $('#sj-menu').find('a:not(".back")').on("click", function (a) {
+            var sj = a.target.innerHTML;
+            var sjli = $(a.target.parentNode);
+            if (typeof(sjli.attr("name")) == "undefined")
+                $('#jsq').html("全国 " + sj);
+            else
+                $('#jsq').html("全国 " + sjli.attr("name") + " " + sj);
+
+            $('#sf-menu').hide();
+            $('#sj-menu').show();
+            $('#cityid').val(sj);
+            var lx = $('#lx').val();
+            getBst($(a.target).attr("id"), sjli.attr("id"), lx, null);
+
+            $('#currentid').val($(a.target).attr("id"));
+            $('#currentid').attr("name", sj);
+            $($('.siderbar-menu').find('a')[0]).click();
+            $('.search-input').val("");
+        });
+        //切换至地税
+        $('#qhzds').on("click", function () {
+            $('#qhzgs').toggle();
+            $('#qhzds').toggle();
+            $('#lx').val(2);
+            var id = $('#currentid').val();
+            $('#' + id).click();
+            $($('.siderbar-menu').find('a')[0]).click();
+        });
+        //切换至国税
+        $('#qhzgs').on("click", function () {
+            $('#qhzgs').toggle();
+            $('#qhzds').toggle();
+            $('#lx').val(1);
+            var id = $('#currentid').val();
+            $('#' + id).click();
+            $($('.siderbar-menu').find('a')[0]).click();
+        });
+
+        //左侧收缩栏
+        $('#floatShow_left').on("click", function () {
+            $('#floatHide_left').toggle();
+            $('#floatShow_left').toggle();
+            $('.mapleft').animate({left: '+=330'}, "slow");
+        });
+
+        $('#floatHide_left').on("click", function () {
+            $('#floatHide_left').toggle();
+            $('#floatShow_left').toggle();
+            $('.mapleft').animate({left: '-=330'}, "slow");
+        });
+
+
+        //右侧收缩栏
+        $('#floatShow_right').on("click", function () {
+            $('#floatHide_right').toggle();
+            $('#floatShow_right').toggle();
+            $('.mapright').animate({right: '+=280'}, "slow");
+            $("#showPanelBtn").css("right", "0px");
+            $("#panelWrap").css("width", "0px");
+            $("#map").css("margin-right", "0px");
+        });
+
+        $('#floatHide_right').on("click", function () {
+            $('#floatHide_right').toggle();
+            $('#floatShow_right').toggle();
+            $('.mapright').animate({right: '-=280'}, "slow");
+        });
+
+        //显示结果面板动作
+        $("#showPanelBtn").bind("click", function () {
+            if (isPanelShow == false) {
+                isPanelShow = true;
+                $("#showPanelBtn").css("right", "300px");
+                $("#panelWrap").css("width", "300px");
+                $("#map").css("margin-right", "300px");
+                $("#showPanelBtn").html("隐藏检索结果面板 <br/>");
+            }
+            else {
+                isPanelShow = false;
+                $("#showPanelBtn").css("right", "0px");
+                $("#panelWrap").css("width", "0px");
+                $("#map").css("margin-right", "0px");
+                $("#showPanelBtn").html("显示检索结果面板<br/>");
+            }
+        });
+
+        $('#searchbut').on('click', function (par) {
+            var search = $(par.target.parentNode).parent().find('input:text').val();
+            var sfxx = $('#sfid').val();
+            var sfname = sfxx.substring(0, sfxx.length - 1);
+            var cityxx = $('#cityid').val()
+            var cityname = cityxx.substring(0, cityxx.length);
+            var sfid = $('li[name="' + sfname + '"]');
+            var cityid = $('a[name="' + cityname + '"]');
+            var lx = $('#lx').val();
+
+            getBst($(cityid).attr('id'), $(sfid).attr('id'), lx, search);
+        });
+
+
+        $('#closex').on("click", function () {
+            $('.search-input').val("");
+        });
+    });
+
+
+</script>
+
+
+<!-- 底部 -->
+<!-- 底部 -->
+<div class="footer">
+    <p>版权所有：国家税务总局&nbsp;&nbsp;京ICP备13021685号-2</p>
+    <p>地址：北京市海淀区羊坊店西路5号&nbsp;&nbsp;邮编：100038</p>
+</div>
+<div class="ui-sidebar">
+    <a href="#" class="sidebar_icon icon_ercode"><i></i><img src="theme/12366/images/ercode.jpg" class="shadow"></a>
+    <a href="/12366/category/zxhd/tsjy/index.html" target='_blank' class="sidebar_icon icon_yjjy"><i></i></a>
+    <a href="http://hd.chinatax.gov.cn/consult/" class="sidebar_icon icon_wsdy" target="_blank"><i></i></a>
+    <a href="#" class="sidebar_icon icon_hddb" id="web_fhdb" style="display: none;" onclick="hidefhdb()"><i></i></a>
+</div>
+<div class="mask"></div>
+<div class="dialog-all">
+    <div class="ui-bg-white dialog userlogin" id="loginwin">
+        <div class="header"><h4 class="fn-left">登录</h4><a href="javascript:;" class="close"
+                                                          onClick="windclose();"></a></div>
+        <div class="bd">
+            <div class="input-tips" style="display:block;"></div>
+            <form method="post" action="" id="webyhdltj" autocomplete="off">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="tabform">
+                    <tbody>
+                    <tr>
+                        <th width="90">用户名</th>
+                        <td><input type="text" onkeydown="onenter_dl(this)" name="yhdm" class="input"
+                                   style="width:252px;"/></td>
+                    </tr>
+                    <tr>
+                        <th>密码</th>
+                        <td><input type="password" onkeydown="onenter_dl(this)" name="yhmm" class="input"
+                                   style="width:252px;"/></td>
+                    </tr>
+                    <tr>
+                        <th>验证码</th>
+                        <td><input type="hidden" name="yzm" value=""/>
+                            <input type="text" name="yzm1" class="input" onkeydown="onenter_dl(this)"
+                                   onchange="setYzm(this);"
+                                   style="width:122px;"><img class="img-yzm"
+                                                             src="../WebYhWWWBLH_getImag.do"
+                                                             onclick="yzmxxx(this)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="button" value="登录" class="btn btnblue btnbig" style="width:260px;"
+                                   onclick="webyh_login();"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="fd"><a href="#" class="textlink" id="webyhzczh">注册账号</a>|<a href="#" id="web_yh_wjmm"
+                                                                                class="textlink">忘记密码?</a></div>
+    </div>
+    <div class="dialog ui-bg-white" id="web_yh_mmzh">
+        <div class="header"><h4 class="fn-left">密码找回</h4><a href="javascript:;" class="close"
+                                                            onClick="windclose();"></a></div>
+        <div class="bd">
+            <div class="input-tips" style="display:block;"></div>
+            <form method="post" action="" id="web_yh_wjmm_form" autocomplete="off">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="tabform">
+                    <tbody>
+                    <tr>
+                        <th width="90">用户名</th>
+                        <td><input onkeydown="onenter_dl(this)" id="web_mmzh_yhdm" 　type="text" name="yhdm"
+                                   class="input" style="width:252px;"/></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td><input onkeydown="onenter_dl(this)" id="web_mmzh_yhyx" 　type="password" name="yhyx"
+                                   class="input" style="width:252px;"/></td>
+                    </tr>
+                    <tr>
+                        <th>验证码</th>
+                        <td><input type="hidden" name="yzm" value=""/>
+                            <input type="text" name="yzm1" class="input" onkeydown="onenter_dl(this)"
+                                   onchange="setYzm(this);"
+                                   style="width:122px;"><img class="img-yzm"
+                                                             src="../WebYhWWWBLH_getImag.do"
+                                                             onclick="yzmxxx(this)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="button" value="找回密码" class="btn btnblue btnbig" style="width:260px;"
+                                   onclick="webyhmmzhsubmit();"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="ui-bg-white dialog userlogin userreg" id="regwin" style="top:0%">
+        <div class="header"><h4 class="fn-left">欢迎注册<span>带<b class="fn-color-red">*</b>为必填项</span></h4>
+            <a
+                    href="javascript:;" class="close" onClick="windclose();"></a></div>
+        <div class="bd">
+            <div class="input-tips" style="display:block;"><i class="icon icon16"></i>这里是一段话描述输入错误的情况</div>
+            <form id="webyhzctj" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="tabform regform">
+                    <tbody>
+                    <tr>
+                        <th width="90">用户名<b class="fn-color-red">*</b></th>
+                        <td><input type="text" name="yhdm" class="input" placeholder="登录账号 6-20个英文数字"
+                                   onkeydown="onenter_dl(this)" style="width:252px;"></td>
+                    </tr>
+                    <tr>
+                        <th>昵称<b class="fn-color-red">*</b></th>
+                        <td><input type="text" name="yhmc" class="input" placeholder="用户昵称"
+                                   onkeydown="onenter_dl(this)" style="width:252px;"></td>
+                    </tr>
+                    <tr>
+                        <th>选择性别</th>
+                        <td>
+                            <input name="yhxb" type="radio" class="check" value="0" checked="checked"/>
+                            <label>男</label>
+                            <input name="yhxb" type="radio" class="check" value="1"/>
+                            <label>女</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>密码<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="password" name="yhmm" class="input" placeholder="请输入密码"
+                                   onkeydown="onenter_dl(this)" style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>密码强度</th>
+                        <td>
+                            <div class="pswState pswState-poor"><span class="s1">弱</span><span class="s2">中等</span><span
+                                    class="s3">强</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>确认密码<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="password" name="yhmm1" class="input" placeholder="重新输入密码"
+                                   onkeydown="onenter_dl(this)" style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>电话<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="text" name="yhdh" class="input" placeholder="请输入电话号码"
+                                   onkeydown="onenter_dl(this)"
+                                   style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="text" name="yhyx" class="input" placeholder="请输入电子邮箱"
+                                   onkeydown="onenter_dl(this)"
+                                   style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>身份证号</th>
+                        <td>
+                            <input type="text" name="yhsfz" class="input" placeholder="请输入身份证号"
+                                   onkeydown="onenter_dl(this)"
+                                   style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>纳税人识别号</th>
+                        <td>
+                            <input type="text" name="yhnsrsbh" class="input" placeholder="请输入纳税人识别号"
+                                   onkeydown="onenter_dl(this)" style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>所属地区</th>
+                        <td>
+                            <select id="web_yh_sssf" name="yhdzsf" style="width:80px"></select>
+                            <select id="web_yh_sssj" name="yhdzsj" style="width:80px"></select>
+                            <select id="web_yh_ssqx" name="yhdzqx" style="width:80px"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>验证码<b class="fn-color-red">*</b></th>
+                        <td><input type="hidden" name="yzm" value=""/>
+                            <input type="text" name="yzm1" class="input" onkeydown="onenter_dl(this)"
+                                   onchange="setYzm(this);"
+                                   style="width:122px;"><img class="img-yzm"
+                                                             src="../WebYhWWWBLH_getImag.do"
+                                                             onclick="yzmxxx(this)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="button" class="btn btnorg btnbig" style="width:260px;" value="马上注册"
+                                   onclick="webyhzcsubmit();"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="ui-bg-white dialog" id="tsxx">
+        <div class="header"><h4 class="fn-left">提示</h4><a href="javascript:;" class="close" onClick="windclose()"></a>
+        </div>
+        <div class="bd fn-tac fn-font-16 tips-success">
+            <i class="icon icon24"></i>
+            <span class="txt">恭喜您，注册成功！</span>
+            <br/>
+            <br/>
+            <br/>
+        </div>
+    </div><!--用户信息查看-->
+    <div class="dialog ui-bg-white" id="webyhzlxx" style="top:15%">
+        <div class="header"><h4 class="fn-left">个人资料</h4><a href="javascript:;" class="close"
+                                                            onClick="windclose();"></a></div>
+        <div class="bd">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="tabform">
+                <tbody>
+                <tr>
+                    <th width="90">用户名</th>
+                    <td><span id="yhdm"></span></td>
+                </tr>
+                <tr>
+                    <th>昵称</th>
+                    <td><span id="yhmc"></span></td>
+                </tr>
+                <tr>
+                    <th>性别</th>
+                    <td>
+                        <span id="yhxb"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>电话</th>
+                    <td>
+                        <span id="yhdh"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>
+                        <span id="yhyx"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>邮箱验证</th>
+                    <td>
+                        <span id="yhyxyz" class="email_yz"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>身份证号</th>
+                    <td>
+                        <span id="yhsfz"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>纳税人识别号</th>
+                    <td>
+                        <span id="yhnsrsbh"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>所属地区</th>
+                    <td>
+                        <span id="yhdzsf"> </span> <span id="yhdzsj"> </span> <span id="yhdzqx"> </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--修改密码-->
+    <div class="ui-bg-white dialog" id="webyhmmxg" style="top:15%">
+        <div class="header">
+            <h4 class="fn-left">密码修改</h4>
+            <a href="javascript:;" class="close" onClick="windclose();"></a>
+        </div>
+        <div class="bd">
+            <div class="input-tips" style="display:block;"><i class="icon icon16"></i>这里是一段话描述输入错误的情况</div>
+            <form id="web_yh_mmxg" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="tabform">
+                    <tbody>
+                    <tr>
+                        <th width="90">用户名<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input id="web_yh_yhid" type="hidden" name="yhid"/>
+                            <input type="text" name="yhdm" class="input" onkeydown="onenter_dl(this)"
+                                   style="width:252px;"
+                                   id="web_yh_yhdm" disabled="true">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>密码<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="password" name="yhmm2" class="input" placeholder="请输入原密码"
+                                   onkeydown="onenter_dl(this)" style="width:252px;" id="yhmm2"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>新密码<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="password" name="yhmm" class="input" placeholder="请输入新密码"
+                                   onkeydown="onenter_dl(this)" style="width:252px;" id="yhmm"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>密码强度</th>
+                        <td>
+                            <div class="pswState pswState-poor"><span class="s1">弱</span><span class="s2">中等</span><span
+                                    class="s3">强</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>确认密码<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="password" name="yhmm1" class="input" placeholder="重新输入密码"
+                                   onkeydown="onenter_dl(this)" style="width:252px;" id="yhmm1"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>验证码<b class="fn-color-red">*</b></th>
+                        <td><input type="hidden" name="yzm" value=""/>
+                            <input type="text" name="yzm1" class="input" onkeydown="onenter_dl(this)"
+                                   onchange="setYzm(this);"
+                                   style="width:122px;"><img class="img-yzm"
+                                                             src="../WebYhWWWBLH_getImag.do"
+                                                             onclick="yzmxxx(this)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="button" class="btn btnorg btnbig" value="修改密码" style="width:260px;"
+                                   onclick="web_yh_mmxg_submit();"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <!--个人信息修改-->
+    <div class="ui-bg-white dialog" id="webyhzlxg" style="top:5%">
+        <div class="header"><h4 class="fn-left">个人资料修改<span>带<b class="fn-color-red">*</b>为必填项</span></h4>
+            <a
+                    href="javascript:;" class="close" onClick="windclose();"></a></div>
+        <div class="bd">
+            <div class="input-tips" style="display:block;"><i class="icon icon16"></i>这里是一段话描述输入错误的情况</div>
+            <form id="web_yh_zlxg_tj" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="tabform">
+                    <tbody>
+                    <tr>
+                        <th width="90">用户名<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input onkeydown="onenter_dl(this)" type="hidden" name="yhid">
+                            <input type="text" name="yhdm" class="input" placeholder="登录账号 6-20个英文数字"
+                                   onkeydown="onenter_dl(this)" style="width:252px;" disabled></td>
+                    </tr>
+                    <tr>
+                        <th>昵称<b class="fn-color-red">*</b></th>
+                        <td><input type="text" name="yhmc" class="input" placeholder="用户昵称"
+                                   onkeydown="onenter_dl(this)" style="width:252px;"></td>
+                    </tr>
+                    <tr>
+                        <th>选择性别</th>
+                        <td>
+                            <input name="yhxb" type="radio" class="check" value="0" checked="checked"/>
+                            <label>男</label>
+                            <input name="yhxb" type="radio" class="check" value="1"/>
+                            <label>女</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>电话<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="text" name="yhdh" class="input" placeholder="请输入电话号码"
+                                   onkeydown="onenter_dl(this)"
+                                   style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email<b class="fn-color-red">*</b></th>
+                        <td>
+                            <input type="text" name="yhyx" class="input" placeholder="请输入电子邮箱"
+                                   onkeydown="onenter_dl(this)"
+                                   style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>身份证号</th>
+                        <td>
+                            <input type="text" name="yhsfz" class="input" placeholder="请输入身份证号"
+                                   onkeydown="onenter_dl(this)"
+                                   style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>纳税人识别号</th>
+                        <td>
+                            <input type="text" name="yhnsrsbh" class="input" placeholder="请输入纳税人识别号"
+                                   onkeydown="onenter_dl(this)" style="width:252px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>所属地区</th>
+                        <td>
+                            <select id="web_yh_sssf" name="yhdzsf" style="width:80px"></select>
+                            <select id="web_yh_sssj" name="yhdzsj" style="width:80px"></select>
+                            <select id="web_yh_ssqx" name="yhdzqx" style="width:80px"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>验证码<b class="fn-color-red">*</b></th>
+                        <td><input type="hidden" name="yzm" value=""/>
+                            <input type="text" name="yzm1" class="input" onkeydown="onenter_dl(this)"
+                                   onchange="setYzm(this);"
+                                   style="width:122px;"><img class="img-yzm"
+                                                             src="../WebYhWWWBLH_getImag.do"
+                                                             onclick="yzmxxx(this)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="button" class="btn btnorg btnbig" value="保存" style="width:260px;"
+                                   onclick="webyhzlxgsubmit();"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/js/12366/web/common.js" type="text/javascript"></script>
+<script src="/js/12366/web/js_login.js" type="text/javascript"></script>
+<script src="/js/12366/web/js_footer.js" type="text/javascript"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+    <!--
+    (function ($, data) {
+        $ && $(document).data('ew-ui-zrardata', data);
+    })(window.jQuery, {
+        "warn": "",
+        "message": "",
+        "statusCode": "200",
+        "zrarData": {"tree": {}, "form": {}, "select": {}, "checkbox": {}, "radio": {}, "grid": {}, "asyncTree": {}},
+        "json": {}
+    });
+    //-->
+</script>
